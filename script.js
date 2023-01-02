@@ -1,39 +1,29 @@
-function getTime(){
-
-    let timesNow = new Date()
-
-    let hours = timesNow.getHours()
-    let minutes = timesNow.getMinutes()
-    let seconds = timesNow.getSeconds()
-
+function timeNow(){
+    var date = new Date();
+    var hour = date.getHours(); // 0 - 23
+    var minute = date.getMinutes(); // 0 - 59
+    var second = date.getSeconds(); // 0 - 59
+    var session = "AM";
     
-    if(hours > 12){
-        hours = hours - 12
-        document.querySelector('#session').innerText = 'PM'
-    }else{
-        document.querySelector('#session').innerText = 'AM'
+    if(hour == 0){
+        hour = 12;
     }
-
-
     
-
-    if(hours < 10){
-        hours = '0' + hours
-    } else if (minutes < 10){
-        minutes = '0' + minutes
-    } else if (seconds < 10){
-        seconds = '0' + seconds
+    if(hour > 12){
+        hour = hour - 12;
+        session = "PM";
     }
-
-    document.querySelector('#hour').innerText = hours;
-    document.querySelector('#minute').innerText = minutes;
-    document.querySelector('#second').innerText = seconds;
+    
+    hour = (hour < 10) ? "0" + hour : hour;
+    minute = (minute < 10) ? "0" + minute : minute;
+    second = (second < 10) ? "0" + second : second;
+    
+    var time = hour + ":" + minute + ":" + second + " " + session;
+    document.getElementById("my_clock").innerText = time;
+    document.getElementById("my_clock").textContent = time;
+    
+    setTimeout(timeNow, 1000);
     
 }
 
-setInterval(getTime, 1000)
-
-// setInterval(function(){
-//     getTime()
-// }, 1000)
-
+timeNow();
